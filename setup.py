@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from os import path
 
 from setuptools import setup, find_packages
 import country_dialcode
@@ -7,8 +8,11 @@ import os
 import re
 
 
-def read(*parts):
-    return open(os.path.join(os.path.dirname(__file__), *parts)).read()
+def read(fname):
+    try:
+        return open(os.path.join(os.path.dirname(__file__), fname)).read()
+    except IOError:
+        return ''
 
 
 def parse_requirements(file_name):
@@ -34,11 +38,17 @@ def parse_dependency_links(file_name):
     return dependency_links
 
 
+with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
+    README = readme.read()
+
+os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+
 setup(
     name='django-country-dialcode',
     version=country_dialcode.__version__,
     description='Django Application providing Dialcode and Countries code',
-    long_description=read('README.rst'),
+    long_description=README,
+    long_description_content_type='text/x-rst',
     author='Belaid Arezqui',
     author_email='areski@gmail.com',
     url='http://github.com/Star2Billing/django-country-dialcode',
@@ -49,8 +59,9 @@ setup(
             "fixtures/*",
         ]
     },
-    # install_requires=parse_requirements('requirements.txt'),
+    #install_requires=parse_requirements('requirements.txt'),
     # dependency_links=parse_dependency_links('requirements.txt'),
+    test_suite='country_dialcode.tests.runtests',
     include_package_data=True,
     license='MIT License',
     classifiers=[
@@ -61,6 +72,9 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
 )

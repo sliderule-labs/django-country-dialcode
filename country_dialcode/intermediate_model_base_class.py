@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from builtins import object
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -8,7 +9,7 @@ class Model(models.Model):
     """
     Intermediate model base class.
     """
-    class Meta:
+    class Meta(object):
         abstract = True
 
     def delete(self, *args, **kwargs):

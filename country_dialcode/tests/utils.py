@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from builtins import map
 from django.contrib.auth.models import User
 from django.test import TestCase, Client
 from django.test.client import RequestFactory
@@ -22,10 +23,10 @@ def build_test_suite_from(test_cases):
         for comp in components[1:]:
             mod = getattr(mod, comp)
         tests = []
-        for item in mod.__dict__.values():
+        for item in list(mod.__dict__.values()):
             if type(item) is type and issubclass(item, test_case):
                 tests.append(item)
         test_suites.append(unittest.TestSuite(
-            map(unittest.TestLoader().loadTestsFromTestCase, tests)))
+            list(map(unittest.TestLoader().loadTestsFromTestCase, tests))))
 
     return unittest.TestSuite(test_suites)

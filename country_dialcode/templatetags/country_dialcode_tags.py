@@ -2,9 +2,10 @@
 
 from django import template
 from django.template.defaultfilters import stringfilter
+from django.utils.translation import gettext as _
 from country_dialcode.models import Country
 from country_dialcode.utils.isoflag import iso_flag as util_iso_flag
-from django.utils.translation import gettext as _
+
 register = template.Library()
 
 
@@ -21,13 +22,14 @@ def iso_flag(country_id, flag_path=u''):
 
     """
     if country_id == '999':
-        #Added for internal call - ie flag/phone.png
+        # Added for internal call - ie flag/phone.png
         return util_iso_flag('telephone', flag_path)
     try:
         obj_country = Country.objects.get(id=country_id)
     except:
         return u''
     return util_iso_flag(obj_country.iso2, flag_path)
+
 
 register.filter('iso_flag', iso_flag)
 
@@ -41,12 +43,13 @@ def country_name(country_id):
     u'Spain'
     """
     if country_id == '999':
-        #Added for internal call - ie flag/phone.png
+        # Added for internal call - ie flag/phone.png
         return _('internal call').title()
     try:
         obj_country = Country.objects.get(id=country_id)
         return obj_country.countryname
     except:
         return _('unknown').title()
+
 
 register.filter('country_name', country_name)

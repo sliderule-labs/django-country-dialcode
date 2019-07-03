@@ -2,19 +2,18 @@
 
 import os
 import sys
+from django.test.runner import DiscoverRunner
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'test_settings'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tests.test_settings')
 parent = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 sys.path.insert(0, parent)
 
-from django.test.simple import DjangoTestSuiteRunner
-
 
 def runtests():
-    return DjangoTestSuiteRunner(failfast=False).run_tests([
+    return DiscoverRunner().run_tests([
         # 'country_dialcode.CountryDialcodeAdminView',
-        'country_dialcode.CountryDialcodeModel',
+        'tests.CountryDialcodeModel',
     ], verbosity=1, interactive=True)
 
 

@@ -1,7 +1,6 @@
 language: python
 python:
-  - "2.6"
-  - "2.7"
+  - "3.5"
 before_install:
   - export PIP_USE_MIRRORS=true
 #  - export PIP_INDEX_URL=https://simple.crate.io/
@@ -12,9 +11,7 @@ install:
 script:
   - make test
 env:
-  - DJANGO=1.4.13
-  - DJANGO=1.5.8
-  - DJANGO=1.6.5
+  - DJANGO=1.9.12
 branches:
   only:
     - develop

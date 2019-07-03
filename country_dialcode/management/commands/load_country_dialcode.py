@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 import inspect
@@ -10,8 +11,6 @@ class Command(BaseCommand):
     args = ' '
     help = "Load Dial Code\n"
 
-    option_list = BaseCommand.option_list
-
     def handle(self, *args, **options):
         """
         Load country dialcode
@@ -20,5 +19,5 @@ class Command(BaseCommand):
             inspect.getfile(inspect.currentframe()))
         fixture_file = script_directory + \
             '/../../fixtures/country_dialcode.json'
-        print ("This fixture is going to be loaded : " + fixture_file)
+        print("This fixture is going to be loaded : " + fixture_file)
         call_command('loaddata', fixture_file)

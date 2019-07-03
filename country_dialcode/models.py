@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from builtins import object
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from country_dialcode.intermediate_model_base_class import Model
@@ -26,7 +27,7 @@ class Country(Model):
     countryname = models.CharField(max_length=240, verbose_name=_('Name'),
                                    help_text=_("Enter Country Name. e.g. United States"))
 
-    class Meta:
+    class Meta(object):
         db_table = 'dialcode_country'
         verbose_name = _("country")
         verbose_name_plural = _("countries")
@@ -47,13 +48,13 @@ class Prefix(Model):
     country_id = models.ForeignKey(Country,
                                    db_column="country_id", null=True,
                                    blank=True, verbose_name=_("country code"),
-                                   help_text=_("select country"))
+                                   help_text=_("select country"), on_delete=models.CASCADE)
     carrier_name = models.CharField(max_length=180, help_text=_("enter carrier name"))
     prefix_type = models.IntegerField(choices=prefix_type_list, default=1,
                                       verbose_name=_('prefix type'),
                                       help_text=_("select prefix type"))
 
-    class Meta:
+    class Meta(object):
         db_table = 'dialcode_prefix'
         verbose_name = _("prefix")
         verbose_name_plural = _("prefixes")
@@ -70,4 +71,5 @@ class Prefix(Model):
             return ""
         else:
             return self.country_id.countryname
+
     country_name.short_description = _("country name")

@@ -11,6 +11,8 @@ class CountryAdmin(admin.ModelAdmin):
     def __init__(self, *args, **kwargs):
         super(CountryAdmin, self).__init__(*args, **kwargs)
         self.list_display_links = ('countrycode', )
+
+
 admin.site.register(Country, CountryAdmin)
 
 
@@ -23,5 +25,6 @@ class PrefixAdmin(admin.ModelAdmin):
     def __init__(self, *args, **kwargs):
         super(PrefixAdmin, self).__init__(*args, **kwargs)
         # self.list_display_links = (None, )
+
 
 admin.site.register(Prefix, PrefixAdmin)
