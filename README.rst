@@ -1,6 +1,6 @@
-========================
-django-country-dialcode
-========================
+==========================
+django-country-dialcode-sb
+==========================
 
 Major code is taken from http://github.com/Star2Billing/django-country-dialcode
 
